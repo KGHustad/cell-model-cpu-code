@@ -1,0 +1,25 @@
+# Name of your program
+package "dump_trace" # don't use package if you're using automake
+# Version of your program
+version "1.0"   # don't use version if you're using automake
+
+# Options
+option  "implementation" i "Model implementation"
+        values="naive","simd"
+        default="naive"
+        enum optional
+
+option  "scheme" s "Numerical scheme to solve the model with"
+        values="FE","RL","GRL1"
+        default="FE"
+        enum optional
+
+option  "output_directory"      - "Results are stored within this directory" string
+        default="dat" optional
+
+option  "store_period"          - "Only store every nth time step in trace" int
+        default="1" optional
+
+option  "solve_dt"          l "Load balance constraint for partitioner" double
+        default="1E-6" optional
+
