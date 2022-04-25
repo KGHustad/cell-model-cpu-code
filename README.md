@@ -53,3 +53,16 @@ __Note: The compiler used will affect which optimisation flags are passed by CMa
 - `USE_FAST_MATH`: Pass flags to the compiler that increase math performance, potentially at the cost of a slight loss of accuracy.
 - `USE_LTO`: Use link-time optimisation (LTO) / interprocedural optimisation (IPO)
 - `VECTOR_LENGTH`: Override the vector length. (It is safe to set this to a multiple of the hardware vector length.)
+
+## Running
+We have provided scripts to run the same benchmarks that were used to generate the data listed in the following tables:
+- Table 3: `jobs/run_math_bench.sh`
+- Table 6: `jobs/run_simd_singlethread.sh`
+- Table 7: `jobs/run_simd_multithread.sh`
+- Table 8: `jobs/run_ensemble.sh`
+- Table 10: `jobs/run_TP06_lut.sh`
+
+These scripts take the build directory as an argument. Example usage:
+```
+bash jobs/run_math_TP06_lut.sh build
+```
