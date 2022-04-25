@@ -11,6 +11,20 @@
 #include "rng.h"
 #include "schemes.h"
 
+void check_function_pointer_exists(void *step_func, void *multistep_func, int use_multistep, char *scheme_str)
+{
+    if (use_multistep) {
+        if (multistep_func == NULL) {
+            printf("ERROR: Model has no multistep function for scheme %s\n", scheme_str);
+            exit(EXIT_FAILURE);
+        }
+    } else {
+        if (step_func == NULL) {
+            printf("ERROR: Model has no step function for scheme %s\n", scheme_str);
+            exit(EXIT_FAILURE);
+        }
+    }
+}
 
 void bench_singlerep(const struct cellmodel *model, struct options *opt)
 {
@@ -118,26 +132,17 @@ void bench_singlerep(const struct cellmodel *model, struct options *opt)
     case SCHEME_FE:
         step = model->step_FE;
         multistep = model->multistep_FE;
-        if (step == NULL) {
-            printf("ERROR: Model has no step function for scheme FE\n");
-            exit(EXIT_FAILURE);
-        }
+        check_function_pointer_exists(step, multistep, use_multistep, "FE");
         break;
     case SCHEME_RL:
         step = model->step_RL;
         multistep = model->multistep_RL;
-        if (step == NULL) {
-            printf("ERROR: Model has no step function for scheme RL\n");
-            exit(EXIT_FAILURE);
-        }
+        check_function_pointer_exists(step, multistep, use_multistep, "RL");
         break;
     case SCHEME_GRL1:
         step = model->step_GRL1;
         multistep = model->multistep_GRL1;
-        if (step == NULL) {
-            printf("ERROR: Model has no step function for scheme GRL1\n");
-            exit(EXIT_FAILURE);
-        }
+        check_function_pointer_exists(step, multistep, use_multistep, "GRL1");
         break;
     default:
         printf("ERROR: Unknown scheme with value %d\n", opt->scheme);
@@ -259,26 +264,17 @@ void bench_reps(const struct cellmodel *model, struct options *opt)
     case SCHEME_FE:
         step = model->step_FE;
         multistep = model->multistep_FE;
-        if (step == NULL) {
-            printf("ERROR: Model has no step function for scheme FE\n");
-            exit(EXIT_FAILURE);
-        }
+        check_function_pointer_exists(step, multistep, use_multistep, "FE");
         break;
     case SCHEME_RL:
         step = model->step_RL;
         multistep = model->multistep_RL;
-        if (step == NULL) {
-            printf("ERROR: Model has no step function for scheme RL\n");
-            exit(EXIT_FAILURE);
-        }
+        check_function_pointer_exists(step, multistep, use_multistep, "RL");
         break;
     case SCHEME_GRL1:
         step = model->step_GRL1;
         multistep = model->multistep_GRL1;
-        if (step == NULL) {
-            printf("ERROR: Model has no step function for scheme GRL1\n");
-            exit(EXIT_FAILURE);
-        }
+        check_function_pointer_exists(step, multistep, use_multistep, "GRL1");
         break;
     default:
         printf("ERROR: Unknown scheme with value %d\n", opt->scheme);
